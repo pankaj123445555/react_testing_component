@@ -1,0 +1,23 @@
+[
+  { "id": 1, "name": "Pizza", "category": "Fast Food", "price": 12.99 },
+  { "id": 2, "name": "Burger", "category": "Fast Food", "price": 8.99 },
+  { "id": 3, "name": "Pasta", "category": "Italian", "price": 10.99 },
+  { "id": 4, "name": "Sushi", "category": "Japanese", "price": 15.99 },
+  { "id": 5, "name": "Tacos", "category": "Mexican", "price": 7.99 },
+  { "id": 6, "name": "Salad", "category": "Healthy", "price": 6.99 },
+  { "id": 7, "name": "Sandwich", "category": "Fast Food", "price": 5.99 },
+  { "id": 8, "name": "Steak", "category": "Grill", "price": 18.99 },
+  { "id": 9, "name": "Chicken Curry", "category": "Indian", "price": 11.99 },
+  { "id": 10, "name": "Ramen", "category": "Japanese", "price": 9.99 },
+  { "id": 11, "name": "Dumplings", "category": "Chinese", "price": 8.49 },
+  { "id": 12, "name": "Falafel", "category": "Middle Eastern", "price": 7.49 },
+  { "id": 13, "name": "Fish & Chips", "category": "British", "price": 12.49 },
+  { "id": 14, "name": "Biryani", "category": "Indian", "price": 13.99 },
+  { "id": 15, "name": "Pho", "category": "Vietnamese", "price": 10.49 },
+  { "id": 16, "name": "Pad Thai", "category": "Thai", "price": 9.99 },
+  { "id": 17, "name": "Shawarma", "category": "Middle Eastern", "price": 8.99 },
+  { "id": 18, "name": "Quesadilla", "category": "Mexican", "price": 7.99 },
+  { "id": 19, "name": "Pancakes", "category": "Breakfast", "price": 6.49 },
+  { "id": 20, "name": "Ice Cream", "category": "Dessert", "price": 4.99 }
+]
+

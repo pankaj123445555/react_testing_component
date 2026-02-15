@@ -1,0 +1,35 @@
+.counter-cnt{
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+}
+.counters-list{
+    display: flex;
+    gap: 12px;
+}
+
+.counter-btn{
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.input-counter{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    /* border-radius: 12px; */
+}
+.btn-cnt{
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+.btn{
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}

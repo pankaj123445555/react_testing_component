@@ -1,0 +1,10 @@
+.star-cnt{
+    margin: 10px;
+    display: flex;
+    gap: 7px;
+    font-size: 40px;
+}
+
+.content{
+    cursor: pointer;
+}

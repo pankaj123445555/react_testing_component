@@ -1,0 +1,30 @@
+.inputs-cnt{
+    display: flex;
+    gap: 8px;
+    padding: 6px
+}
+.input-box{
+    width: 45px;
+    height: 35px;
+    border: 1px solid black;
+    padding: 6px;
+}
+
+.btn-cnt{
+ margin-top: 7px;
+ gap: 10px;
+ display: flex;
+}
+
+.btn{
+    /* width: 30px; */
+    /* height: 15px; */
+    padding: 12px;
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background-color: blueviolet;
+    cursor: pointer;
+}

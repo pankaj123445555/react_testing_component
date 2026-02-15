@@ -1,0 +1,39 @@
+[
+        {
+            "step": 1,
+            "title": "Personal Information",
+            "fields": [
+                {
+                    "label": "First Name",
+                    "type": "text",
+                    "name": "firstName",
+                    "required": true
+                }
+            ]
+        },
+        {
+            "step": 2,
+            "title": "Address Details",
+            "fields": [
+                {
+                    "label": "Street Address",
+                    "type": "text",
+                    "name": "streetAddress",
+                    "required": true
+                }
+            ]
+        },
+        {
+            "step": 3,
+            "title": "Payment Information",
+            "fields": [
+                {
+                    "label": "Credit Card Number",
+                    "type": "text",
+                    "name": "cardNumber",
+                    "required": true
+                }
+                 
+            ]
+        }
+]

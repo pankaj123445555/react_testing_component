@@ -1,0 +1,48 @@
+.container {
+  width: 350px;
+  margin: 40px auto;
+  font-family: sans-serif;
+}
+
+.inputBox {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.inputBox input {
+  flex: 1;
+  padding: 8px;
+}
+
+.inputBox button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  cursor: pointer;
+  color: #555;
+}
+
+.icon:hover {
+  color: #000;
+}

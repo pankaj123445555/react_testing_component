@@ -1,0 +1,9 @@
+.search-bar{
+    width: 220px;
+    height: 30px;
+    border: '1px solid black';
+    border-radius: 5px;
+}
+.search-bar:focus{
+    outline: none;
+}

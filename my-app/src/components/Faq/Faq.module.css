@@ -1,0 +1,20 @@
+.faq-cnt{
+    border: 1px solid black;
+    padding: 20px;
+    width: 400px;
+    margin: 20px auto;
+    border-radius: 8px;
+}
+
+.text{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+
+.sub-text-cnt{
+    margin-left: 20px;
+    font-size: 16px;
+}

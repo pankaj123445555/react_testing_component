@@ -1,0 +1,18 @@
+.todoContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 20vh;
+    max-height: 50vh;        /* limit height */
+    width: 30vw;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+
+    overflow-y: auto;       /* enable vertical scroll */
+}
+
+
+.todoList{
+     margin-top: 5px;
+}

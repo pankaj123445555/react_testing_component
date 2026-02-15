@@ -1,0 +1,77 @@
+.box {
+  min-width: 300px;
+  max-width: 600px;
+  width: auto;
+  margin: 32px auto;
+  padding: 24px 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f9fafb;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.step-box {
+  margin-bottom: 28px;
+  padding: 18px 20px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.step-box h2 {
+  margin: 0 0 14px 0;
+  font-size: 1.2rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+.field-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.field-box label {
+  min-width: 110px;
+  font-size: 1rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.field-box input[type="text"],
+.field-box input[type="email"],
+.field-box input[type="number"],
+.field-box input[type="password"] {
+  flex: 1;
+  padding: 7px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f3f4f6;
+  transition: border 0.2s;
+}
+
+.field-box input:focus {
+  border: 1.5px solid #6366f1;
+  outline: none;
+  background: #fff;
+}
+
+.btn{
+  padding: 10px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.button-box {
+  display: flex;
+  margin: 10px;
+}
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-left: 10px;
+}
