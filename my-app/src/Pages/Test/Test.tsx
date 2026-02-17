@@ -1,21 +1,14 @@
-import React, { useState } from 'react';
 import styles from './Test.module.css';
-import Pagination from '../../components/pagination/pagination';
+import AccordionComponent from '../../components/Accordion/Accordion';
 
 function TestComponent() {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const changePage = (page: number) => {
-    setCurrentPage(page);
-  };
-
   return (
     <div className={styles['container']}>
-      <Pagination
-        totalItem={25}
-        currentItem={currentPage}
-        changePage={changePage}
-      />
+      <AccordionComponent text="heading text">
+        <div>
+          <h1>this is our children component</h1>
+        </div>
+      </AccordionComponent>
     </div>
   );
 }
