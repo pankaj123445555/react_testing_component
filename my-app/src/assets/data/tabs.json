@@ -1,20 +1,24 @@
 {
-    "tabs" : [
-        {
-            "id":1,
-            "name":"tab1"
-        },
-        {
-            "id":2,
-            "name":"tab2"
-        },
-        {
-            "id":3,
-            "name":"tab3"
-        },
-        {
-            "id":4,
-            "name":"tab4"
-        }
-    ]
+  "tabs": [
+    {
+      "id": 1,
+      "name": "tab1",
+      "content": "tab content 1"
+    },
+    {
+      "id": 2,
+      "name": "tab2",
+      "content": "tab content 2"
+    },
+    {
+      "id": 3,
+      "name": "tab3",
+      "content": "tab content 3"
+    },
+    {
+      "id": 4,
+      "name": "tab4",
+      "content": "tab content 3"
+    }
+  ]
 }
