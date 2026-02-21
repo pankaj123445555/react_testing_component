@@ -1,40 +1,30 @@
 import styles from './Test.module.css';
-import Tabs from '../../components/tabs/tabs';
-import SearchBar from '../../components/SearchBar/SearchBar';
+import SingleSelectDropDown from '../../components/DropDown/Dropdown';
 
-interface Tab {
-  id: number;
-  name: string;
-  content: string | React.ReactNode;
+interface DropdownOption {
+  value: string;
+  label: string;
 }
 
-const tabs: Tab[] = [
-  // {
-  //   id: 1,
-  //   name: 'tab1',
-  //   content: <SearchBar />,
-  // },
-  // {
-  //   id: 2,
-  //   name: 'tab2',
-  //   content: 'tab content 2',
-  // },
-  // {
-  //   id: 3,
-  //   name: 'tab3',
-  //   content: 'tab content 3',
-  // },
-  // {
-  //   id: 4,
-  //   name: 'tab4',
-  //   content: 'tab content 3',
-  // },
+const dropdownOptions: DropdownOption[] = [
+  { value: '1', label: 'Option 1' },
+  { value: '2', label: 'Option 2' },
+  { value: '3', label: 'Option 3' },
+  { value: '4', label: 'Option 4' },
 ];
 
 function TestComponent() {
+  const handleDropdownChange = (value: string) => {
+    console.log('Selected value:', value);
+  };
+
   return (
     <div className={styles['container']}>
-      <Tabs tabs={tabs} />
+      <SingleSelectDropDown
+        options={dropdownOptions}
+        placeholder="Choose an option"
+        onChange={handleDropdownChange}
+      />
     </div>
   );
 }
