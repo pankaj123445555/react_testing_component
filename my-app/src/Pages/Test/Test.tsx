@@ -1,10 +1,10 @@
 import styles from './Test.module.css';
-import StopWatch from '../../components/stopWatch/stopWatch';
+import FormComponent from '../../components/Form/Form';
 
 function TestComponent() {
   return (
     <div className={styles['container']}>
-      <StopWatch />
+      <FormComponent />
     </div>
   );
 }
