@@ -11,14 +11,7 @@ interface YouTubeSegmentPlayerProps {
 
 declare global {
   interface Window {
-    YT: {
-      Player: new (element: HTMLElement | string, options: any) => any;
-      PlayerState: {
-        PLAYING: number;
-        PAUSED: number;
-        ENDED: number;
-      };
-    };
+    YT: any;
     onYouTubeIframeAPIReady?: () => void;
   }
 }
@@ -26,7 +19,7 @@ declare global {
 export default function YouTubeSegmentPlayer({
   videoId,
   start = 0,
-  end = 40,
+  end = 55,
   width = 560,
   height = 315,
   autoplay = true,
@@ -34,39 +27,32 @@ export default function YouTubeSegmentPlayer({
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<any>(null);
   const timerRef = useRef<number | null>(null);
+
   const [ready, setReady] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const duration = end - start;
 
   useEffect(() => {
     if (!videoId) return;
 
-    // Load YouTube IFrame API once
-    const loadYT = (): Promise<void> =>
-      new Promise((resolve: (value?: void) => void) => {
-        if (window.YT && window.YT.Player) return resolve();
-
-        const existing = document.getElementById('youtube-iframe-api');
-        if (existing) {
-          // If script is already present, wait for it to be ready
-          const check = setInterval(() => {
-            if (window.YT && window.YT.Player) {
-              clearInterval(check);
-              resolve();
-            }
-          }, 50);
+    const loadYouTubeAPI = () =>
+      new Promise<void>(resolve => {
+        if (window.YT && window.YT.Player) {
+          resolve();
           return;
         }
 
-        const tag = document.createElement('script');
-        tag.id = 'youtube-iframe-api';
-        tag.src = 'https://www.youtube.com/iframe_api';
-        document.body.appendChild(tag);
+        const existingScript = document.getElementById('youtube-iframe-api');
 
-        // The API calls this global when ready
-        const prev = window.onYouTubeIframeAPIReady;
-        window.onYouTubeIframeAPIReady = () => {
-          if (typeof prev === 'function') prev();
-          resolve();
-        };
+        if (!existingScript) {
+          const tag = document.createElement('script');
+          tag.id = 'youtube-iframe-api';
+          tag.src = 'https://www.youtube.com/iframe_api';
+          document.body.appendChild(tag);
+        }
+
+        window.onYouTubeIframeAPIReady = () => resolve();
       });
 
     const clearTimer = () => {
@@ -76,30 +62,32 @@ export default function YouTubeSegmentPlayer({
       }
     };
 
-    const startEndEnforcer = () => {
+    const enforceSegment = () => {
       clearTimer();
-      timerRef.current = setInterval(() => {
-        const p = playerRef.current;
-        if (!p || typeof p.getCurrentTime !== 'function') return;
-        const t = p.getCurrentTime();
-        if (t >= end) {
-          p.pauseVideo();
-          p.seekTo(end - 0.1, true);
+
+      timerRef.current = window.setInterval(() => {
+        const player = playerRef.current;
+        if (!player || !player.getCurrentTime) return;
+
+        const current = player.getCurrentTime();
+        const elapsed = current - start;
+
+        // Stop at end
+        if (current >= end) {
+          player.pauseVideo();
+          player.seekTo(end - 0.1, true);
+          setProgress(100);
           clearTimer();
+          return;
         }
-      }, 50);
+
+        const percent = Math.min((elapsed / duration) * 100, 100);
+        setProgress(percent);
+      }, 100);
     };
 
-    const init = async () => {
-      await loadYT();
-
-      // Destroy any previous player
-      if (playerRef.current) {
-        try {
-          playerRef.current.destroy();
-        } catch {}
-        playerRef.current = null;
-      }
+    const initPlayer = async () => {
+      await loadYouTubeAPI();
 
       if (!containerRef.current) return;
 
@@ -109,56 +97,95 @@ export default function YouTubeSegmentPlayer({
         videoId,
         playerVars: {
           autoplay: autoplay ? 1 : 0,
-          start: Math.max(0, Math.floor(start)),
-          // NOTE: end is not reliably enforced by playerVars alone, so we enforce manually.
+          controls: 0, // hide default controls
           rel: 0,
           modestbranding: 1,
         },
         events: {
           onReady: () => {
             setReady(true);
-            // Ensure start position
-            if (playerRef.current) {
-              playerRef.current.seekTo(start, true);
-              if (autoplay) playerRef.current.playVideo();
-            }
-            startEndEnforcer();
+            playerRef.current.seekTo(start, true);
+            if (autoplay) playerRef.current.playVideo();
+            enforceSegment();
           },
-          onStateChange: (e: any) => {
-            // If user resumes playback after pause, enforce end again
+          onStateChange: (event: any) => {
             const YT = window.YT;
             if (!YT) return;
-            if (e.data === YT.PlayerState.PLAYING) startEndEnforcer();
+
+            if (event.data === YT.PlayerState.PLAYING) {
+              enforceSegment();
+            }
+
             if (
-              e.data === YT.PlayerState.PAUSED ||
-              e.data === YT.PlayerState.ENDED
-            )
+              event.data === YT.PlayerState.PAUSED ||
+              event.data === YT.PlayerState.ENDED
+            ) {
               clearTimer();
+            }
           },
         },
       });
     };
 
-    init();
+    initPlayer();
 
     return () => {
-      // cleanup
+      clearTimer();
       if (playerRef.current) {
-        try {
-          playerRef.current.destroy();
-        } catch {}
+        playerRef.current.destroy();
         playerRef.current = null;
       }
-      if (timerRef.current) clearInterval(timerRef.current);
-      timerRef.current = null;
       setReady(false);
     };
-  }, [videoId, start, end, width, height, autoplay]);
+  }, [videoId, start, end, width, height, autoplay, duration]);
+
+  // Manual seek inside fake progress bar
+  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!playerRef.current) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const percent = clickX / rect.width;
+
+    const newTime = start + percent * duration;
+
+    playerRef.current.seekTo(newTime, true);
+    setProgress(percent * 100);
+  };
 
   return (
-    <div>
+    <div style={{ width }}>
       <div ref={containerRef} />
+
       {!ready && <div style={{ marginTop: 8 }}>Loading player…</div>}
+
+      {/* Custom Progress Bar */}
+      <div
+        onClick={handleSeek}
+        style={{
+          marginTop: 12,
+          height: 8,
+          background: '#ddd',
+          borderRadius: 4,
+          cursor: 'pointer',
+          position: 'relative',
+        }}
+      >
+        <div
+          style={{
+            width: `${progress}%`,
+            height: '100%',
+            background: '#ff0000',
+            borderRadius: 4,
+            transition: 'width 0.1s linear',
+          }}
+        />
+      </div>
+
+      {/* Time Display */}
+      <div style={{ fontSize: 12, marginTop: 6 }}>
+        {Math.floor((progress / 100) * duration)} / {duration} sec
+      </div>
     </div>
   );
 }

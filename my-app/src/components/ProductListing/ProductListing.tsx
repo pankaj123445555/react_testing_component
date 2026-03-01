@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './ProductListing.module.css';
 
 const ProductListing = ({ products }: any) => {
